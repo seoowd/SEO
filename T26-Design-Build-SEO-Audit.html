@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page {
+    size: A4;
+    margin: 18mm 16mm 20mm 16mm;
+    @bottom-center {
+      content: "T26 Design Build · SEO Audit · Confidential";
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 8pt;
+      color: #9aa3b2;
+    }
+    @bottom-right {
+      content: "Page " counter(page) " of " counter(pages);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 8pt;
+      color: #9aa3b2;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #2b303b;
+    font-size: 10.5pt;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ---------- COVER ---------- */
+  .cover {
+    background: linear-gradient(135deg, #0f1b2d 0%, #1c3a5e 55%, #2c6e8f 100%);
+    color: #fff;
+    margin: -18mm -16mm -20mm -16mm;
+    padding: 55mm 16mm 30mm 16mm;
+    min-height: 297mm;
+    page-break-after: always;
+    position: relative;
+  }
+  .cover .eyebrow {
+    letter-spacing: 4px;
+    font-size: 11pt;
+    text-transform: uppercase;
+    color: #7fd1c4;
+    font-weight: 600;
+  }
+  .cover h1 {
+    font-size: 40pt;
+    line-height: 1.05;
+    margin: 14px 0 6px 0;
+    font-weight: 700;
+  }
+  .cover .sub {
+    font-size: 15pt;
+    color: #c7d3e3;
+    font-weight: 300;
+    margin-bottom: 50px;
+  }
+  .cover .meta {
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 22px;
+    margin-top: 40px;
+  }
+  .cover .meta div { margin-bottom: 7px; font-size: 11pt; color: #dbe4f0; }
+  .cover .meta span { color: #7fd1c4; font-weight: 600; display:inline-block; width: 130px; }
+  .cover .scorebox {
+    position: absolute;
+    bottom: 30mm; right: 16mm;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(127,209,196,0.4);
+    border-radius: 14px;
+    padding: 18px 26px;
+    text-align: center;
+  }
+  .cover .scorebox .num { font-size: 34pt; font-weight: 700; color: #7fd1c4; line-height: 1; }
+  .cover .scorebox .lbl { font-size: 8.5pt; letter-spacing: 2px; text-transform: uppercase; color: #c7d3e3; margin-top: 6px; }
+
+  /* ---------- SECTIONS ---------- */
+  h2.section {
+    font-size: 16pt;
+    color: #1c3a5e;
+    border-bottom: 3px solid #2c6e8f;
+    padding-bottom: 6px;
+    margin: 30px 0 16px 0;
+  }
+  h2.section .n {
+    background: #2c6e8f; color: #fff; border-radius: 6px;
+    padding: 1px 9px; font-size: 12pt; margin-right: 10px;
+  }
+  p { margin: 0 0 11px 0; }
+
+  .summary-card {
+    background: #f4f7fb;
+    border-left: 4px solid #2c6e8f;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+
+  /* ---------- ISSUE CARDS ---------- */
+  .issue {
+    border: 1px solid #e3e8f0;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 13px;
+    page-break-inside: avoid;
+  }
+  .issue h3 {
+    margin: 0 0 6px 0;
+    font-size: 11.5pt;
+    color: #1c3a5e;
+    display: flex; align-items: center;
+  }
+  .tag {
+    font-size: 7.5pt; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: #fff;
+    border-radius: 4px; padding: 2px 8px; margin-right: 10px;
+  }
+  .high { background: #d64545; }
+  .med  { background: #e08e1b; }
+  .low  { background: #5b9aa0; }
+  .ok   { background: #2e9e6b; }
+  .fix {
+    background: #f0f9f4; border-radius: 6px;
+    padding: 9px 13px; margin-top: 8px; font-size: 9.8pt;
+    border-left: 3px solid #2e9e6b;
+  }
+  .fix b { color: #1c6b46; }
+
+  /* ---------- TABLES ---------- */
+  table { width: 100%; border-collapse: collapse; margin: 6px 0 14px 0; font-size: 9.8pt; }
+  th {
+    background: #1c3a5e; color: #fff; text-align: left;
+    padding: 8px 11px; font-weight: 600;
+  }
+  td { padding: 7px 11px; border-bottom: 1px solid #e3e8f0; }
+  tr:nth-child(even) td { background: #f6f8fb; }
+  .num-r { text-align: right; font-variant-numeric: tabular-nums; }
+  .bad { color: #d64545; font-weight: 600; }
+
+  ul { margin: 4px 0 12px 0; padding-left: 20px; }
+  li { margin-bottom: 5px; }
+
+  .good-list li::marker { color: #2e9e6b; }
+
+  .pill { font-weight: 700; }
+  .pill.high { color: #d64545; }
+  .pill.med  { color: #e08e1b; }
+  .pill.low  { color: #5b9aa0; }
+
+  .footnote {
+    margin-top: 26px; padding-top: 12px;
+    border-top: 1px solid #e3e8f0;
+    font-size: 8.5pt; color: #8a93a3; font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="eyebrow">Search Engine Optimization</div>
+  <h1>Website SEO Audit</h1>
+  <div class="sub">T26 Design Build Co. &nbsp;·&nbsp; t26designbuild.com</div>
+
+  <div class="meta">
+    <div><span>Prepared for</span> T26 Design Build Co.</div>
+    <div><span>Date</span> June 4, 2026</div>
+    <div><span>Scope</span> 15 indexable HTML pages</div>
+    <div><span>Data source</span> Full-site technical crawl</div>
+  </div>
+
+  <div class="scorebox">
+    <div class="num">6.5<span style="font-size:16pt;">/10</span></div>
+    <div class="lbl">Overall Health</div>
+  </div>
+</div>
+
+<!-- 1. EXEC SUMMARY -->
+<h2 class="section"><span class="n">1</span>Executive Summary</h2>
+<div class="summary-card">
+The site has a <b>healthy technical foundation</b> — every page returns a clean <b>200&nbsp;OK</b>, all pages are indexable, and canonical tags are correctly configured. There are no broken pages, redirect chains, or indexing blocks.
+</div>
+<p>However, the audit surfaced several on-page and content gaps that are likely holding back rankings — especially on the high-value service pages (kitchen, bathroom, home, and landscape remodeling). The two most impactful issues are:</p>
+<ul>
+  <li><b>Missing H1 headings on 6 of the most important pages</b>, including the homepage.</li>
+  <li><b>A leftover WordPress placeholder description on the homepage</b> ("Just another construction site"), wasting your most valuable search snippet.</li>
+</ul>
+<p>Site speed is also a concern, with several pages showing very slow server response times. The good news: the highest-impact fixes are quick and inexpensive.</p>
+
+<!-- 2. PRIORITY ISSUES -->
+<h2 class="section"><span class="n">2</span>Priority Issues — Fix First</h2>
+
+<div class="issue">
+  <h3><span class="tag high">High</span>Homepage description is a placeholder</h3>
+  <p>The homepage meta description currently reads <b>"Just another construction site"</b> — the default WordPress tagline. It appears directly in Google results and undermines credibility and click-through on your most visited page.</p>
+  <div class="fix"><b>Fix:</b> Replace with a compelling, keyword-rich description, e.g. <i>"T26 Design Build Co. delivers expert home, kitchen, bathroom &amp; landscape remodeling in Phoenix, Scottsdale &amp; Chandler. Book your free estimate today."</i></div>
+</div>
+
+<div class="issue">
+  <h3><span class="tag high">High</span>Missing H1 headings on 6 key pages</h3>
+  <p>These pages have no H1 tag, weakening their relevance for target keywords. They currently lead with an H2 instead.</p>
+  <table>
+    <tr><th>Page</th><th>Target Keyword</th></tr>
+    <tr><td>Homepage</td><td>Phoenix remodeling / brand</td></tr>
+    <tr><td>/home-remodeling-in-phoenix/</td><td>Home remodeling Phoenix</td></tr>
+    <tr><td>/kitchen-remodel-phoenix/</td><td>Kitchen remodel Phoenix</td></tr>
+    <tr><td>/bathroom-remodel-phoenix/</td><td>Bathroom remodel Phoenix</td></tr>
+    <tr><td>/landscape-design-phoenix/</td><td>Landscape design Phoenix</td></tr>
+    <tr><td>/remodel-service/</td><td>Phoenix remodeling services</td></tr>
+  </table>
+  <div class="fix"><b>Fix:</b> Promote the lead heading to a proper H1 containing the primary keyword (e.g. <i>"Kitchen Remodeling in Phoenix &amp; Scottsdale"</i>).</div>
+</div>
+
+<div class="issue">
+  <h3><span class="tag high">High</span>Homepage title is too short &amp; under-optimized</h3>
+  <p>The title is just <b>"T26 Design Build"</b> (16 characters) — it uses almost none of the available space and contains no service or location keywords.</p>
+  <div class="fix"><b>Fix:</b> <i>"Phoenix Home Remodeling &amp; Design Build Contractor | T26"</i> (~50–55 characters).</div>
+</div>
+
+<!-- 3. MEDIUM -->
+<h2 class="section"><span class="n">3</span>Medium-Priority Issues</h2>
+
+<div class="issue">
+  <h3><span class="tag med">Medium</span>Meta descriptions too long (truncated in search)</h3>
+  <p>Six pages exceed the ~160-character limit and get cut off in search results:</p>
+  <table>
+    <tr><th>Page</th><th class="num-r">Length (chars)</th></tr>
+    <tr><td>/remodel-service/</td><td class="num-r bad">341</td></tr>
+    <tr><td>/contact-us/</td><td class="num-r bad">323</td></tr>
+    <tr><td>/kitchen-remodel-phoenix/</td><td class="num-r bad">307</td></tr>
+    <tr><td>/landscape-design-phoenix/</td><td class="num-r bad">291</td></tr>
+    <tr><td>/about-us/</td><td class="num-r bad">269</td></tr>
+    <tr><td>/our-work/</td><td class="num-r bad">259</td></tr>
+  </table>
+  <div class="fix"><b>Fix:</b> Trim each to a single, tight sentence with a call to action. The bathroom &amp; home-remodeling pages are already a good length — use them as the template.</div>
+</div>
+
+<div class="issue">
+  <h3><span class="tag med">Medium</span>Thin content on portfolio pages</h3>
+  <p>The six project pages (Grand Vista Duplex, Cedar Cabin, Chandler Home Remodel, etc.) contain only <b>52–68 words each</b> — essentially image galleries with little text for Google to rank.</p>
+  <div class="fix"><b>Fix:</b> Add 150–250 words per project covering scope of work, location, materials, and outcome. This also strengthens local relevance ("Chandler", "Scottsdale", etc.).</div>
+</div>
+
+<div class="issue">
+  <h3><span class="tag med">Medium</span>Slow server response times</h3>
+  <p>Several pages are slow to respond (Time to First Byte). Anything over ~1 second is a problem — these are well beyond that.</p>
+  <table>
+    <tr><th>Page</th><th class="num-r">Response Time</th></tr>
+    <tr><td>/contact-us/</td><td class="num-r bad">12.98 s</td></tr>
+    <tr><td>/landscape-design-phoenix/</td><td class="num-r bad">10.81 s</td></tr>
+    <tr><td>/about-us/</td><td class="num-r bad">7.79 s</td></tr>
+    <tr><td>Homepage</td><td class="num-r bad">6.76 s</td></tr>
+  </table>
+  <div class="fix"><b>Fix:</b> Investigate hosting, caching, and unoptimized plugins/images. Slow load times hurt both rankings and conversions.</div>
+</div>
+
+<!-- 4. LOW -->
+<h2 class="section"><span class="n">4</span>Low-Priority &amp; Housekeeping</h2>
+<div class="issue">
+  <ul>
+    <li><span class="pill low">Typo</span> &nbsp;The "Our Work" page reads "home and <b>ourdoor</b> remodeling projects" — should be "outdoor". Worth a full-site proofread.</li>
+    <li><span class="pill low">Internal links</span> &nbsp;The Scottsdale Kitchen Remodel page has only <b>1 internal link</b>. Link portfolio pages from related service pages to spread authority.</li>
+    <li><span class="pill low">Readability</span> &nbsp;Several service pages score "Fairly Hard". Shorten sentences and break up paragraphs.</li>
+    <li><span class="pill low">HTTP/2</span> &nbsp;Site is served over HTTP/1.1. Upgrading to HTTP/2 (a host/CDN setting) gives a small speed gain.</li>
+  </ul>
+</div>
+
+<!-- 5. WHAT'S WORKING -->
+<h2 class="section"><span class="n">5</span>What's Working Well</h2>
+<div class="issue" style="border-color:#bfe6d2; background:#f4fbf7;">
+  <ul class="good-list">
+    <li>All 15 pages return <b>200 OK</b> and are <b>indexable</b> — no crawl or indexation errors.</li>
+    <li><b>Canonical tags</b> are present and self-referencing on every page.</li>
+    <li>Clean, <b>keyword-friendly URLs</b> (e.g. /kitchen-remodel-phoenix/).</li>
+    <li>Logical architecture — <b>crawl depth never exceeds 2 clicks</b>.</li>
+    <li>Most service-page titles are well-formed and include location keywords.</li>
+  </ul>
+</div>
+
+<!-- 6. ACTION PLAN -->
+<h2 class="section"><span class="n">6</span>Recommended Action Plan</h2>
+<table>
+  <tr><th style="width:6%">#</th><th>Action</th><th style="width:18%">Priority</th><th style="width:14%">Effort</th></tr>
+  <tr><td>1</td><td>Replace homepage placeholder description</td><td><span class="pill high">High</span></td><td>Low</td></tr>
+  <tr><td>2</td><td>Add H1 tags to the 6 affected pages</td><td><span class="pill high">High</span></td><td>Low</td></tr>
+  <tr><td>3</td><td>Rewrite &amp; lengthen homepage title tag</td><td><span class="pill high">High</span></td><td>Low</td></tr>
+  <tr><td>4</td><td>Trim 6 over-length meta descriptions</td><td><span class="pill med">Medium</span></td><td>Low</td></tr>
+  <tr><td>5</td><td>Expand thin portfolio-page content</td><td><span class="pill med">Medium</span></td><td>Medium</td></tr>
+  <tr><td>6</td><td>Reduce server response times</td><td><span class="pill med">Medium</span></td><td>Medium</td></tr>
+  <tr><td>7</td><td>Fix typos &amp; improve internal links</td><td><span class="pill low">Low</span></td><td>Low</td></tr>
+</table>
+<div class="summary-card" style="border-left-color:#2e9e6b; background:#f4fbf7;">
+<b>Quick wins:</b> Items 1–4 can be completed in just a few hours and address the highest-impact issues on the site.
+</div>
+
+<div class="footnote">
+Audit based on a full-site technical crawl. For a complete picture, pair this with Google Search Console (queries &amp; clicks), Google Analytics (conversions), and a backlink profile review.
+</div>
+
+</body>
+</html>
